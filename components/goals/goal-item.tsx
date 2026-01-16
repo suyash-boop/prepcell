@@ -27,7 +27,7 @@ export function GoalItem({ goal }: GoalItemProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          goalId: goal.id,
+          id: goal.id,
           completed: checked,
         }),
       })

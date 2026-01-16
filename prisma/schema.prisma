@@ -8,15 +8,20 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String    @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String          @id @default(cuid())
+  name            String?
+  email           String          @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  companies       Company[]
+  goals           Goal[]
+  interviews      Interview[]     // Add this line
+  skillCategories SkillCategory[]
+  importantDates  ImportantDate[] // Add this line
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 }
 
 model Account {
@@ -54,10 +59,36 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Company {
+  id              String   @id @default(cuid())
+  name            String
+  examPattern     String?  @db.Text
+  importantTopics String?  @db.Text
+  notes           String?  @db.Text
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  targetDate  DateTime
+  completed   Boolean  @default(false)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model SkillCategory {
   id        String   @id @default(cuid())
   name      String
-  order     Int
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order     Int      @default(0)
   skills    Skill[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,30 +104,31 @@ model Skill {
   updatedAt  DateTime      @updatedAt
 }
 
-model Company {
-  id              String   @id @default(cuid())
-  name            String
-  examPattern     String?  @db.Text
-  importantTopics String?  @db.Text
-  notes           String?  @db.Text
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+model Interview {
+  id        String   @id @default(cuid())
+  company   String
+  type      String
+  date      DateTime
+  notes     String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([date])
 }
 
-model Goal {
-  id          String    @id @default(cuid())
+model ImportantDate {
+  id          String   @id @default(cuid())
   title       String
-  description String?   @db.Text
-  completed   Boolean   @default(false)
-  dueDate     DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
+  date        DateTime
+  description String?
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-model Resume {
-  id           String   @id @default(cuid())
-  fileName     String
-  fileUrl      String
-  cloudinaryId String
-  uploadedAt   DateTime @default(now())
+  @@index([userId])
+  @@index([date])
 }
