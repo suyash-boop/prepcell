@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prepcell 🎯
+
+A comprehensive placement preparation tracking platform built with Next.js, helping students organize their interview preparation journey.
+
+## Features
+
+- **📊 Skill Tracking** - Track progress across 9+ categories including DSA, Algorithms, Aptitude, and Web Development
+- **🏢 Company Notes** - Maintain company-specific preparation notes, exam patterns, and important topics
+- **✅ Daily Goals** - Set and track daily preparation goals with progress monitoring
+- **📅 Calendar View** - Visualize interviews, important dates, and deadlines
+- **📄 Resume Management** - Upload and manage your resume with Cloudinary integration
+- **🤖 AI Assistant** - Get preparation tips and guidance using Groq AI
+- **🎨 Neobrutalism UI** - Bold, high-contrast design for better focus
+
+## Tech Stack
+
+**Frontend:**
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS
+- Radix UI Components
+
+**Backend:**
+- Next.js API Routes
+- NextAuth.js (GitHub OAuth)
+- Prisma ORM
+- PostgreSQL (Neon)
+
+**Services:**
+- Cloudinary (File Storage)
+- Groq AI (AI Integration)
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd prepcell
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file:
+   ```env
+   DATABASE_URL="your-postgresql-url"
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="your-secret-key"
+   GITHUB_ID="your-github-oauth-id"
+   GITHUB_SECRET="your-github-oauth-secret"
+   CLOUDINARY_CLOUD_NAME="your-cloudinary-name"
+   CLOUDINARY_API_KEY="your-cloudinary-key"
+   CLOUDINARY_API_SECRET="your-cloudinary-secret"
+   GROQ_API_KEY="your-groq-api-key"
+   ```
+
+4. **Set up the database**
+   ```bash
+   npx prisma migrate dev
+   npx prisma db seed
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000)
+
+## Database Schema
+
+- **User** - Authentication and user data
+- **SkillCategory** - Categories like DSA, Algorithms, etc.
+- **Skill** - Individual skills within categories
+- **Goal** - Daily preparation goals
+- **Company** - Company-specific preparation notes
+- **Interview** - Scheduled interviews
+- **ImportantDate** - Important deadlines
+- **Resume** - Resume storage metadata
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npx prisma db seed   # Seed database with default skills
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+MIT
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ for placement preparation
