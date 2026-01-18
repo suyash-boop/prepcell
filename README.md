@@ -97,5 +97,3 @@ npx prisma db seed   # Seed database with default skills
 MIT
 
 ---
-
-Built with ❤️ for placement preparation
